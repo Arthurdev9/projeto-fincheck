@@ -1,11 +1,11 @@
-import { IsString, MinLength, IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
-export class CreateUserDto {
+export class SignupDto {
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @IsEmail()
+  @IsString()
   @IsNotEmpty()
   @IsEmail()
   email: string;
@@ -15,9 +15,9 @@ export class CreateUserDto {
   @MinLength(8)
   password: string;
 
-  constructor(name: string, email: string, password: string) {
-    this.name = name;
+  constructor(email: string, password: string, name: string) {
     this.email = email;
     this.password = password;
+    this.name = name;
   }
 }

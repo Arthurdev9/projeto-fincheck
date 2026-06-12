@@ -1,6 +1,5 @@
 import { IsNotEmpty, IsString, IsUrl, NotEquals, ValidateIf, validateSync } from 'class-validator';
 import { Transform, plainToInstance } from 'class-transformer';
-import { env } from 'process';
 
 class Env {
   @IsString()
@@ -36,4 +35,4 @@ if (errors.length > 0) {
   throw new Error(JSON.stringify(errors, null, 2));
 }
 
-export default env;
+export default envConfig;

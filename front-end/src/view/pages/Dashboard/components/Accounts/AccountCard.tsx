@@ -1,7 +1,7 @@
 import { formatCurrency } from '@app/utils/formatCurrency';
 import { BankAccountTypeIcon } from '@view/components/BankAccountTypeIcon';
 import { cn } from '@app/utils/cn';
-import { BankAccount } from '@app/entities/BankAccount';
+import type { BankAccount } from '@app/entities/BankAccount';
 
 import { useDashboard } from '../DashboardContext/useDashboard';
 
@@ -9,8 +9,13 @@ interface AccountCardProps {
   bankAccount: BankAccount;
 }
 
+interface DashboardContextValue {
+  areValuesVisible: boolean;
+  openEditAccountModal: (bankAccount: BankAccount) => void;
+}
+
 export function AccountCard({ bankAccount }: AccountCardProps) {
-  const { areValuesVisible, openEditAccountModal } = useDashboard();
+  const { areValuesVisible, openEditAccountModal } = useDashboard() as DashboardContextValue;
 
   return (
     <button

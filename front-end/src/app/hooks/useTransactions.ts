@@ -7,16 +7,16 @@ export function useTransactions(filters: TransactionFilters) {
   const {
     data = [],
     isFetching,
-    isInitialLoading,
+    isLoading,
     refetch,
   } = useQuery({
-    queryKey: ['transactions'],
+    queryKey: ['transactions', filters],
     queryFn: async () => transactionsService.getAll(filters),
   });
 
   return {
     transactions: data,
-    isInitialLoading,
+    isInitialLoading: isLoading,
     isLoading: isFetching,
     refetchTransactions: refetch,
   };

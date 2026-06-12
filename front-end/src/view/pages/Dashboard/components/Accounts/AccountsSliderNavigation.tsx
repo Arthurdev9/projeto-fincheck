@@ -2,30 +2,30 @@ import { useEffect, useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 import { useSwiper } from 'swiper/react';
 
-interface AccountsSliderNavigationProps {
-  isBeginning: boolean | null;
-  isEnd: boolean | null;
-}
-
 interface SliderState {
   isBeginning: boolean;
   isEnd: boolean;
 }
 
-export function AccountsSliderNavigation({ isBeginning, isEnd }: AccountsSliderNavigationProps) {
+export function AccountsSliderNavigation() {
   const swiper = useSwiper();
 
   const [sliderState, setSliderState] = useState<SliderState>({
-    isBeginning: isBeginning ?? swiper.isBeginning,
-    isEnd: isEnd ?? swiper.isEnd,
+    isBeginning: swiper.isBeginning,
+    isEnd: swiper.isEnd,
   });
 
   useEffect(() => {
-    setSliderState({
-      isBeginning: isBeginning ?? swiper.isBeginning,
-      isEnd: isEnd ?? swiper.isEnd,
-    });
-  }, [isBeginning, isEnd, swiper.isBeginning, swiper.isEnd]);
+    const handleSlideChange = () => {
+      setSliderState({
+        isBeginning: swiper.isBeginning,
+        isEnd: swiper.isEnd,
+      });
+    };
+
+    swiper.on('slideChange', handleSlideChange);
+    return () => swiper.off('slideChange', handleSlideChange);
+  }, [swiper]);
 
   return (
     <div>

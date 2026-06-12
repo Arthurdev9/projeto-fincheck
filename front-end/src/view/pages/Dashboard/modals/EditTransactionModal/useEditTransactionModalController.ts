@@ -47,7 +47,7 @@ export function useEditTransactionModalController(
       name: transaction?.name,
       categoryId: transaction?.categoryId,
       bankAccountId: transaction?.bankAccountId,
-      date: transaction?.date ? new Date(transaction.date) : undefined,
+      date: transaction?.date ? new Date(transaction?.date) : undefined,
     },
   });
 
@@ -61,11 +61,7 @@ export function useEditTransactionModalController(
   ), [categories, transaction?.type]);
 
   const queryClient = useQueryClient();
-
-  const {
-    isPending: isLoading,
-    mutateAsync: updateTransaction,
-  } = useMutation({
+  const { isPending, mutateAsync: updateTransaction } = useMutation({
     mutationFn: (data: TransactionEditParams) => transactionsService.edit(data),
   });
 
@@ -73,9 +69,7 @@ export function useEditTransactionModalController(
     isPending: isLoadingDelete,
     mutateAsync: removeTransaction,
   } = useMutation({
-    mutationFn: (transactionId: string) => (
-      transactionsService.remove(transactionId)
-    ),
+    mutationFn: (transactionId: string) => transactionsService.remove(transactionId),
   });
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
@@ -93,23 +87,12 @@ export function useEditTransactionModalController(
       toast.success(
         `${transaction.type === 'EXPENSE' ? 'Despesa' : 'Receita'} atualizada com sucesso!`,
       );
-
-      queryClient.invalidateQueries({
-        queryKey: ['transactions'],
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: ['bankAccounts'],
-      });
-
+      queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] });
       onClose?.();
     } catch {
       toast.error(
-        `Erro ao cadastrar a ${
-          transaction.type === 'EXPENSE'
-            ? 'despesa'
-            : 'receita'
-        }.`,
+        `Erro ao cadastrar a ${transaction.type === 'EXPENSE' ? 'despesa' : 'receita'}.`,
       );
     }
   };
@@ -123,23 +106,12 @@ export function useEditTransactionModalController(
       toast.success(
         `${transaction.type === 'EXPENSE' ? 'Despesa' : 'Receita'} excluída com sucesso!`,
       );
-
-      queryClient.invalidateQueries({
-        queryKey: ['transactions'],
-      });
-
-      queryClient.invalidateQueries({
-        queryKey: ['bankAccounts'],
-      });
-
+      queryClient.invalidateQueries({ queryKey: ['transactions'] });
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] });
       onClose?.();
     } catch {
       toast.error(
-        `Erro ao excluir ${
-          transaction.type === 'EXPENSE'
-            ? 'despesa'
-            : 'receita'
-        }.`,
+        `Erro ao excluir ${transaction.type === 'EXPENSE' ? 'despesa' : 'receita'}.`,
       );
     }
   }
@@ -159,7 +131,7 @@ export function useEditTransactionModalController(
     control,
     accounts,
     categories: filteredCategories,
-    isLoading,
+    isPending,
     isDeleteModalOpen,
     handleDeleteTransaction,
     handleOpenDeleteModal,

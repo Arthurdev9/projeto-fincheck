@@ -28,9 +28,9 @@ export function useLoginController() {
     resolver: zodResolver(schema),
   });
 
-  const { isPending: isLoading, mutateAsync } = useMutation({
-  mutationFn: (data: SigninParams) => authService.signin(data),
-});
+  const { isPending, mutateAsync } = useMutation({
+    mutationFn: (data: SigninParams) => authService.signin(data),
+  });
 
   const { signIn } = useAuth();
 
@@ -47,6 +47,6 @@ export function useLoginController() {
     register,
     handleSubmit: handleSubmit(onSubmit),
     errors,
-    isLoading,
+    isLoading: isPending,
   };
 }

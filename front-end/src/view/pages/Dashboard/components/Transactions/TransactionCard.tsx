@@ -40,7 +40,7 @@ export function TransactionCard({
       <span className={cn(
         'tracking-[-0.5px] font-medium',
         type === 'income' ? 'text-green-800' : 'text-red-800',
-        !isValueVisible && 'blur-sm select-none',
+        !isValueVisible && 'blur-[8px] select-none',
       )}
       >
         {type === 'expense' && '- '}

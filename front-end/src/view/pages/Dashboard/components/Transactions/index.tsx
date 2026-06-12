@@ -4,7 +4,7 @@ import { FilterIcon } from '@view/components/icons/FilterIcon';
 import { MONTHS } from '@app/config/constants';
 import { Spinner } from '@view/components/Spinner';
 import { formatDate } from '@app/utils/formatDate';
-import emptyStateSrc from '@assets/empty-state.svg';
+import emptyStateSrc from '../../../../../assets/empty-state.svg';
 
 import { SliderOption } from './SliderOption';
 import { SliderNavigation } from './SliderNavigation';

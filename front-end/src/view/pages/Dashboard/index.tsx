@@ -1,7 +1,10 @@
+import type { ContextType } from 'react';
 import { Logo } from '@view/components/Logo';
 import { UserMenu } from '@view/components/UserMenu';
 
-import { DashboardContext, DashboardProvider } from './components/DashboardContext';
+import { DashboardContext } from './components/DashboardContext/DashboardContext';
+import { DashboardProvider } from './components/DashboardContext/DashboardProvider';
+
 import { Accounts } from './components/Accounts';
 import { Transactions } from './components/Transactions';
 import { Fab } from './components/Fab';
@@ -13,7 +16,7 @@ export function Dashboard() {
   return (
     <DashboardProvider>
       <DashboardContext.Consumer>
-        {({ accountBeingEdited }) => (
+        {({ accountBeingEdited }: ContextType<typeof DashboardContext>) => (
           <div className="w-full h-full p-4 pb-0 md:px-8 md:pt-6 flex flex-col gap-4">
             <header className="h-12 flex items-center justify-between ">
               <Logo className="h-6 text-teal-900" />

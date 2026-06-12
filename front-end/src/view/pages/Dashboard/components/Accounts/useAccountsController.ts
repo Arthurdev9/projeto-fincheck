@@ -10,6 +10,13 @@ interface SlideState {
   isEnd: boolean | null;
 }
 
+interface DashboardController {
+  areValuesVisible: boolean;
+  toggleValueVisibility: () => void;
+  openNewAccountModal: () => void;
+  openEditAccountModal: () => void;
+}
+
 export function useAccountsController() {
   const windowWidth = useWindowWidth();
   const {
@@ -17,7 +24,7 @@ export function useAccountsController() {
     toggleValueVisibility,
     openNewAccountModal,
     openEditAccountModal,
-  } = useDashboard();
+  } = useDashboard() as DashboardController;
 
   const [sliderState, setSliderState] = useState<SlideState>({
     isBeginning: null,
@@ -27,13 +34,15 @@ export function useAccountsController() {
   const { accounts, isFetching } = useBankAccounts();
 
   useEffect(() => {
-    if (isFetching) {
+  if (isFetching) {
+    queueMicrotask(() => {
       setSliderState({
         isBeginning: null,
         isEnd: null,
       });
-    }
-  }, [isFetching]);
+    });
+  }
+}, [isFetching]);
 
   const currentBalance = useMemo(() => (
     accounts.reduce((total, account) => account.currentBalance + total, 0)

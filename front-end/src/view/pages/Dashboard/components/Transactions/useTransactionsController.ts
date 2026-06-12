@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useTransactions } from '@app/hooks/useTransactions';
 import type { TransactionFilters } from '@app/services/transactionsService/getAll';
@@ -7,7 +7,7 @@ import type { Transaction } from '@app/entities/Transaction';
 import { useDashboard } from '../DashboardContext/useDashboard';
 
 export function useTransactionsController() {
-  const { areValuesVisible } = useDashboard();
+  const { areValuesVisible } = useDashboard() as { areValuesVisible: boolean };
 
   const [filters, setFilters] = useState<TransactionFilters>({
     month: new Date().getMonth(),
@@ -18,7 +18,6 @@ export function useTransactionsController() {
     transactions,
     isLoading,
     isInitialLoading,
-    refetchTransactions,
   } = useTransactions(filters);
 
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
@@ -26,9 +25,6 @@ export function useTransactionsController() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [transactionBeingEdited, setTransactionBeingEdited] = useState<Transaction | null>(null);
 
-  useEffect(() => {
-    refetchTransactions();
-  }, [refetchTransactions, filters]);
 
   function handleChangeFilter<TFilter extends keyof TransactionFilters>(filterName: TFilter) {
     return (value: TransactionFilters[TFilter]) => {

@@ -31,7 +31,7 @@ export function Login() {
 
       <form
         onSubmit={handleSubmit}
-        className="w-full mt-15 flex flex-col gap-4"
+        className="w-full mt-[60px] flex flex-col gap-4"
       >
         <Input
           type="email"
@@ -47,7 +47,7 @@ export function Login() {
           {...register('password')}
         />
 
-        <Button type="submit" className="mt-2" isLoading={isLoading}>
+        <Button type="submit" className="mt-2 cursor-pointer" isLoading={isLoading}>
           Entrar
         </Button>
       </form>

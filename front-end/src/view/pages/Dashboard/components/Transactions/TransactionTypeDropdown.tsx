@@ -1,32 +1,20 @@
 import { ChevronDownIcon } from '@radix-ui/react-icons';
 
-import {
-  DropdownMenuRoot,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from '@view/components/DropdownMenu';
-
-import { ExpensesIcon } from '@view/components/icons/ExpenseIcon';
+import { DropdownMenuRoot, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@view/components/DropdownMenu';
+import { ExpensesIcon } from '@view/components/icons/ExpensesIcon';
 import { IncomeIcon } from '@view/components/icons/IncomeIcon';
-import { TransactionsIcon } from '@view/components/icons/TransactionIcon';
+import { TransactionsIcon } from '@view/components/icons/TransactionsIcon';
 
 interface TransactionTypeDropdownProps {
   selectedType?: 'INCOME' | 'EXPENSE';
   onSelect?: (value?: 'INCOME' | 'EXPENSE') => void;
 }
 
-export function TransactionTypeDropdown({
-  selectedType,
-  onSelect = undefined,
-}: TransactionTypeDropdownProps) {
+export function TransactionTypeDropdown({ selectedType, onSelect }: TransactionTypeDropdownProps) {
   return (
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
-        <button
-          type="button"
-          className="flex items-center gap-2"
-        >
+        <button type="button" className="flex items-center gap-2">
           {selectedType === 'INCOME' && <IncomeIcon />}
           {selectedType === 'EXPENSE' && <ExpensesIcon />}
           {!selectedType && <TransactionsIcon />}
@@ -36,32 +24,20 @@ export function TransactionTypeDropdown({
             {selectedType === 'EXPENSE' && 'Despesas'}
             {!selectedType && 'Transações'}
           </span>
-
           <ChevronDownIcon className="text-gray-900" />
         </button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="z-20">
-        <DropdownMenuItem
-          className="gap-2 px-8"
-          onSelect={() => onSelect?.('INCOME')}
-        >
+        <DropdownMenuItem className="gap-2 px-8" onSelect={() => onSelect?.('INCOME')}>
           <IncomeIcon />
           Receitas
         </DropdownMenuItem>
-
-        <DropdownMenuItem
-          className="gap-2 px-8"
-          onSelect={() => onSelect?.('EXPENSE')}
-        >
+        <DropdownMenuItem className="gap-2 px-8" onSelect={() => onSelect?.('EXPENSE')}>
           <ExpensesIcon />
           Despesas
         </DropdownMenuItem>
-
-        <DropdownMenuItem
-          className="gap-2 px-8"
-          onSelect={() => onSelect?.()}
-        >
+        <DropdownMenuItem className="gap-2 px-8" onSelect={() => onSelect?.()}>
           <TransactionsIcon />
           Transações
         </DropdownMenuItem>
@@ -69,3 +45,8 @@ export function TransactionTypeDropdown({
     </DropdownMenuRoot>
   );
 }
+
+TransactionTypeDropdown.defaultProps = {
+  onSelect: null,
+  selectedType: null,
+};

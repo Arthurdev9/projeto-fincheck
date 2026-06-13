@@ -7,6 +7,7 @@ import { AuthGuard } from './modules/auth/auth.guard.js';
 import { BankAccountsModule } from './modules/bank-accounts/bank-accounts.module.js';
 import { CategoriesModule } from './modules/categories/categories.module.js';
 import { TransactionsModule } from './modules/transactions/transactions.module.js';
+import { HealthController } from './health.controller.js';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { TransactionsModule } from './modules/transactions/transactions.module.j
     CategoriesModule,
     TransactionsModule,
   ],
-  controllers: [],
+  controllers: [HealthController],
   providers: [
     {
       provide: APP_GUARD,

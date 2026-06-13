@@ -22,11 +22,15 @@ export class BankAccountsService {
     const bankAccounts = await this.bankAccountsRepository.findAllByUserId(userId);
 
     return bankAccounts.map(({ transactions, ...bankAccount }) => {
-      const currentBalance = transactions.reduce(
-        (acc, transaction) =>
-          acc + (transaction.type === 'INCOME' ? transaction.value : -transaction.value),
-        bankAccount.initialBalance,
-      );
+      const now = new Date();
+
+      const currentBalance = transactions
+        .filter((t) => new Date(t.date) <= now)
+        .reduce(
+          (acc, transaction) =>
+            acc + (transaction.type === 'INCOME' ? transaction.value : -transaction.value),
+          bankAccount.initialBalance,
+        );
 
       return {
         currentBalance,

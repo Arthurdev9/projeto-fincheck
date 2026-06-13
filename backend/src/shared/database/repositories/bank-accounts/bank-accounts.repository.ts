@@ -30,6 +30,7 @@ export class BankAccountsRepository {
           select: {
             type: true,
             value: true,
+            date: true,
           },
         },
       },

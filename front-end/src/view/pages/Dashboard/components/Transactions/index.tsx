@@ -118,6 +118,7 @@ export function Transactions() {
                   <TransactionCard
                     name={transaction.name}
                     date={formatDate(new Date(transaction.date))}
+                    rawDate={transaction.date}
                     type={transaction.type === 'EXPENSE' ? 'expense' : 'income'}
                     icon={transaction.category?.icon}
                     value={transaction.value}

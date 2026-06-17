@@ -35,7 +35,7 @@ export function EditTransactionModal({
     isDeleteModalOpen,
     handleCloseDeleteModal,
     handleOpenDeleteModal,
-    isLoading,
+    isPending,
     isLoadingDelete,
   } = useEditTransactionModalController(transaction ?? null, onClose);
 
@@ -156,7 +156,7 @@ export function EditTransactionModal({
           />
         </div>
 
-        <Button type="submit" className="w-full mt-6" isLoading={isLoading}>
+        <Button type="submit" className="w-full mt-6" isLoading={isPending}>
           Salvar
         </Button>
       </form>

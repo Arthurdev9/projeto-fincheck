@@ -13,8 +13,6 @@ import { useAccountsController } from './useAccountsController';
 
 export function Accounts() {
   const {
-    sliderState,
-    setSliderState,
     windowWidth,
     areValuesVisible,
     toggleValueVisibility,
@@ -81,37 +79,25 @@ export function Accounts() {
             )}
 
             {accounts.length > 0 && (
-              <Swiper
-                spaceBetween={16}
-                slidesPerView={windowWidth >= 500 ? 2.1 : 1.1}
-                className="w-full h-full flex flex-1 flex-col justify-end"
-                wrapperClass="mt-4 h-auto"
-                onSlideChange={(swiper) => {
-                  setSliderState({
-                    isBeginning: swiper.isBeginning,
-                    isEnd: swiper.isEnd,
-                  });
-                }}
-              >
+                <Swiper
+                    spaceBetween={16}
+                    slidesPerView={windowWidth >= 500 ? 2.1 : 1.1}
+                    className="w-full h-full flex flex-1 flex-col justify-end"
+                    wrapperClass="mt-4 h-auto"
+                  >
                 <div slot="container-start" className="flex items-center justify-between">
                   <strong className="text-white tracking-[-1px] text-lg font-bold">
                     Minhas contas
                   </strong>
-
-                  <AccountsSliderNavigation
-                    isBeginning={sliderState.isBeginning}
-                    isEnd={sliderState.isEnd}
-                  />
+                  <AccountsSliderNavigation /> {/* ← sem props */}
                 </div>
 
-                {accounts.map((account) => (
-                  <SwiperSlide key={account.id}>
-                    <AccountCard
-                      bankAccount={account}
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+              {accounts.map((account) => (
+                <SwiperSlide key={account.id}>
+                  <AccountCard bankAccount={account} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
             )}
           </div>
         </>

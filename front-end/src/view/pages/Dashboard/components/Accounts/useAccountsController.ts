@@ -4,6 +4,7 @@ import { useWindowWidth } from '@app/hooks/useWindowWidth';
 import { useBankAccounts } from '@app/hooks/useBankAccounts';
 
 import { useDashboard } from '../DashboardContext/useDashboard';
+import type { BankAccount } from '@app/entities/BankAccount';
 
 interface SlideState {
   isBeginning: boolean | null;
@@ -14,7 +15,7 @@ interface DashboardController {
   areValuesVisible: boolean;
   toggleValueVisibility: () => void;
   openNewAccountModal: () => void;
-  openEditAccountModal: () => void;
+  openEditAccountModal: (bankAccount: BankAccount) => void;
 }
 
 export function useAccountsController() {
